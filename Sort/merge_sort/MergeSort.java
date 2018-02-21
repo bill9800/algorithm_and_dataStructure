@@ -8,36 +8,6 @@ import java.util.*;
 
 public class MergeSort{
 	/*
-		Main method
-		test function to ensure the function of mergesort method
-		@param args  input from terminal
-	**/
-	public static void main(String[] args) {
-		//Test descending odd order
-		int[] testArr1 = new int[]{7,6,5,4,3,2,1};
-		System.out.println("Test descending odd order: "+Arrays.toString(testArr1));
-		MergeSort.mergeSort(testArr1,0,testArr1.length-1);
-		System.out.println("result: "+Arrays.toString(testArr1));
-
-		//Test descending even order
-		int[] testArr2 = new int[]{6,5,4,3,2,1};
-		System.out.println("Test descending even order: "+Arrays.toString(testArr2));
-		MergeSort.mergeSort(testArr2,0,testArr2.length-1);
-		System.out.println("result: "+Arrays.toString(testArr2));
-
-		//Test random order
-
-		int[] testArr3 = new int[]{8,8,6,8,61,23,4,4,348,97,9,4};
-		System.out.println("Test random order: "+Arrays.toString(testArr3));
-		MergeSort.mergeSort(testArr3,0,testArr3.length-1);
-		System.out.println("result: "+Arrays.toString(testArr3));
-
-
-	}
-
-
-
-	/*
 		This recursive mergeSort method is used to do the divide and conquer algorithm
 
 		@param A  the array we want to sort
@@ -63,48 +33,44 @@ public class MergeSort{
 		@param r  the index of the last element we want to combine
 	**/
 	private static void combine(int[] A,int p,int mid,int r){
-		//create a tempory int to store the result
-		int[] tempArr = new int[r-p+1];
-		int lastLoc = -1; //store the last sorted index of tempArr, add 1 before each addition
-		int startIdx = p; //store the start index as a reference to copy back tempArr to A
-		int q = mid+1; //q is the start index of the second part;
-		
+		int leftSize = mid-p+1;
+		int rightSize = r-mid;
+		int[] leftArr = new int[leftSize]; 
+		int[] rightArr = new int[rightSize];
+
+		for(int i = 0; i<leftArr.length;i++){//copy left part
+			leftArr[i] = A[i+p];
+		}
+		for(int i = 0; i<rightArr.length;i++){ //copy right part
+			rightArr[i] = A[mid+i+1];
+		}
+
 		//do comparsion util one part is empty, and add all other part to the end
-		while( p<=mid && q<=r ){ 
-			if(A[p]<A[q]){ //left part is smaller
-				lastLoc++;
-				tempArr[lastLoc] = A[p];
-				p++;
-			}else if(A[p]>A[q]){ //right part is smaller
-				lastLoc++;
-				tempArr[lastLoc] = A[q];
-				q++;
-			}else{ // both part are the same, choose left part to add
-				lastLoc++;
-				tempArr[lastLoc] = A[p];
-				p++;
-			}
+		int currentIdx = p;
+		int lftIdx = 0;
+		int rgtIdx = 0;
 
-		}
-		
-		//store remained part into tempArr
-		if(p>mid){ //left part is empty
-			for(int i=q;i<r+1;i++){
-				lastLoc++;
-				tempArr[lastLoc] = A[i]; 
+		while(lftIdx<leftSize&&rgtIdx<rightSize){ //both part are not empty
+			if(leftArr[lftIdx]>rightArr[rgtIdx]){//right part smaller
+				A[currentIdx] = rightArr[rgtIdx];
+				rgtIdx++;
+			}else{//left part smaller or the same, pick left one
+				A[currentIdx] = leftArr[lftIdx];
+				lftIdx++;
 			}
-		}else{//right part is empty
-			for(int i=p;i<mid+1;i++){
-				lastLoc++;
-				tempArr[lastLoc] = A[i];
-			}
+			currentIdx++;
 		}
 
-		// copy tempArr back to A
-		int tempIdx = 0;
-		for(int i=startIdx;i<r+1;i++){
-			A[i] = tempArr[tempIdx];
-			tempIdx++;
+		while(lftIdx<leftSize){//some element are still not scanned in left part
+			A[currentIdx] = leftArr[lftIdx];
+			lftIdx++;
+			currentIdx++;
+		}
+
+		while(rgtIdx>rightSize){//some element are still not scanned in right part
+			A[currentIdx] = rightArr[rgtIdx];
+			rgtIdx++;
+			currentIdx++;
 		}
 
 	}
