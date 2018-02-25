@@ -1,12 +1,24 @@
+package sort.merge_sort;
+import sort.sort_basic.*;
 import java.util.*;
-
 /*
  *	Classic merge sort function 
  *  
  *  Input should be a random int array, output will be a sorted int array 
 **/
 
-public class MergeSort{
+public class MergeSort extends Sort{
+
+	/*
+		general sort method for all kinds of Sort, should not change the name and input param
+
+		@param A  the array we want to sort
+	**/
+	public void sort(int[] A){
+		mergeSort(A,0,A.length-1);
+	}
+
+
 	/*
 		This recursive mergeSort method is used to do the divide and conquer algorithm
 
@@ -14,7 +26,7 @@ public class MergeSort{
 		@param p  the index of the first element we want to sort in A array
 		@param r  the index of the last element we want to sort in Aarray
 	**/
-	public static void mergeSort(int[] A,int p,int r){
+	private static void mergeSort(int[] A,int p,int r){
 		if(p<r){
 			int mid = (p+r)/2;
 			mergeSort(A,p,mid);
