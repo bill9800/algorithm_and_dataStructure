@@ -21,21 +21,19 @@ public class SelectionSort extends Sort{
 	**/
 	private static void selectionSort(int[] A, int currentIdx){
 		int arrSize = A.length;
-		if(currentIdx==arrSize-1){ //base case: have done the search for all index in A
-			return;
-		}
-		int min = Integer.MAX_VALUE;
-		int minIdx = currentIdx;
-		for(int i=currentIdx;i<arrSize;i++){//find the minimum in unsorted part
-			if(A[i]<min){
-				min = A[i];
-				minIdx = i;
+		for(int i=0;i<arrSize-1;i++){//find the index of the min value
+			int minIdx = i;
+			for(int j=i+1;j<arrSize;j++){
+				if(A[j]<A[minIdx]){
+					minIdx = j;
+				}
 			}
+			//swap the number 
+			int temp = A[minIdx];
+			A[minIdx] = A[i];
+			A[i] = temp;
 		}
-		//swap the number 
-		A[minIdx] = A[currentIdx];
-		A[currentIdx] = min;
-		selectionSort(A,currentIdx+1);
+
 	}
 
 } 
