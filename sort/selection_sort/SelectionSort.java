@@ -11,7 +11,7 @@ public class SelectionSort extends Sort{
 		@param A  input int array
 	**/
 	public void sort(int[] A){
-		selectionSort(A,0);
+		selectionSort(A);
 	}
 
 	/*
@@ -19,7 +19,7 @@ public class SelectionSort extends Sort{
 		@param A  input int array 
 		@param currentIdx  the current first index to do one step selection sort
 	**/
-	private static void selectionSort(int[] A, int currentIdx){
+	private static void selectionSort(int[] A){
 		int arrSize = A.length;
 		for(int i=0;i<arrSize-1;i++){//find the index of the min value
 			int minIdx = i;
