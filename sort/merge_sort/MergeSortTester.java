@@ -13,6 +13,7 @@ public class MergeSortTester extends SortTester{
 		@param args  input from terminal
 	**/
 	public static void main(String[] args) {
+		System.out.println("Test merge sort:");
 		MergeSort mergeSort = new MergeSort();
 		sortTest(mergeSort);
 	}
