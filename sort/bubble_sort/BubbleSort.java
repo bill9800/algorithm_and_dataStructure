@@ -29,7 +29,7 @@ public class BubbleSort extends Sort{
 		swap two element in array according to the index
 		@param A  input array
 		@param firstIdx  first one index 
-		@param secondidx  the index we want to swap with the first index
+		@param secondIdx  the index we want to swap with the first index
 	**/
 	private static void swap(int[] A,int firstIdx,int secondIdx){
 		int temp = A[firstIdx];
